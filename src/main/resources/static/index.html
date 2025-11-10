@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & Weather Assistant - Syntax Squad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- Custom Logo -->
+            <div class="logo-container">
+                <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Cloud Shape -->
+                    <g class="cloud-group">
+                        <ellipse cx="100" cy="80" rx="35" ry="25" fill="url(#cloudGradient)"/>
+                        <ellipse cx="75" cy="85" rx="25" ry="20" fill="url(#cloudGradient)"/>
+                        <ellipse cx="125" cy="85" rx="25" ry="20" fill="url(#cloudGradient)"/>
+                        <rect x="65" y="80" width="70" height="25" fill="url(#cloudGradient)"/>
+                    </g>
+
+                    <!-- AI Brain Circuit -->
+                    <g class="brain-group">
+                        <circle cx="100" cy="120" r="30" fill="none" stroke="url(#brainGradient)" stroke-width="3"/>
+                        <circle cx="90" cy="110" r="4" fill="url(#brainGradient)"/>
+                        <circle cx="110" cy="110" r="4" fill="url(#brainGradient)"/>
+                        <circle cx="85" cy="125" r="3" fill="url(#brainGradient)"/>
+                        <circle cx="115" cy="125" r="3" fill="url(#brainGradient)"/>
+                        <circle cx="100" cy="135" r="3" fill="url(#brainGradient)"/>
+                        <line x1="90" y1="110" x2="85" y2="125" stroke="url(#brainGradient)" stroke-width="2"/>
+                        <line x1="110" y1="110" x2="115" y2="125" stroke="url(#brainGradient)" stroke-width="2"/>
+                        <line x1="85" y1="125" x2="100" y2="135" stroke="url(#brainGradient)" stroke-width="2"/>
+                        <line x1="115" y1="125" x2="100" y2="135" stroke="url(#brainGradient)" stroke-width="2"/>
+                    </g>
+
+                    <!-- Sparkles -->
+                    <g class="sparkles">
+                        <path d="M 40 60 L 42 65 L 47 67 L 42 69 L 40 74 L 38 69 L 33 67 L 38 65 Z" fill="#FFD700" opacity="0.8"/>
+                        <path d="M 160 60 L 162 65 L 167 67 L 162 69 L 160 74 L 158 69 L 153 67 L 158 65 Z" fill="#FFD700" opacity="0.8"/>
+                        <path d="M 100 40 L 102 45 L 107 47 L 102 49 L 100 54 L 98 49 L 93 47 L 98 45 Z" fill="#00F2FE" opacity="0.8"/>
+                    </g>
+
+                    <!-- Gradients -->
+                    <defs>
+                        <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <h1>🤖 AI & Weather Assistant</h1>
+            <p class="subtitle">Powered by Gemini AI and WeatherAPI</p>
+            <div class="branding">
+                <span class="made-by">Made by</span>
+                <span class="syntax-squad">
+                    <span class="bracket">&lt;</span>
+                    Syntax Squad
+                    <span class="bracket">/&gt;</span>
+                </span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- AI Chat Section -->
+            <section class="card ai-section">
+                <h2>💬 Chat with AI</h2>
+                <div class="chat-container">
+                    <div id="chatMessages" class="chat-messages"></div>
+                </div>
+                <div class="input-group">
+                    <textarea
+                        id="promptInput"
+                        placeholder="Ask me anything..."
+                        rows="3"
+                        onkeydown="if(event.key==='Enter' && event.ctrlKey) sendPrompt()"
+                    ></textarea>
+                    <button onclick="sendPrompt()" class="btn btn-primary">
+                        <span id="sendBtnText">Send</span>
+                        <span id="sendBtnLoading" class="loading" style="display: none;">
+                            <span class="spinner"></span> Processing...
+                        </span>
+                    </button>
+                </div>
+                <p class="hint">Tip: Press Ctrl+Enter to send</p>
+            </section>
+
+            <!-- Combined AI + Weather Chatbot Section -->
+            <section class="card chatbot-section">
+                <h2>🌤️ AI Weather Assistant</h2>
+                <p class="section-description">Ask weather-related questions and get AI-powered answers!</p>
+                <div class="input-group vertical">
+                    <input
+                        type="text"
+                        id="chatbotLocation"
+                        placeholder="Enter city (e.g., Copenhagen)"
+                    />
+                    <textarea
+                        id="chatbotQuestion"
+                        placeholder="Ask a weather-related question (e.g., 'Should I bring an umbrella?', 'What should I wear?')"
+                        rows="3"
+                        onkeydown="if(event.key==='Enter' && event.ctrlKey) askChatbot()"
+                    ></textarea>
+                    <button onclick="askChatbot()" class="btn btn-success">
+                        <span id="chatbotBtnText">Ask AI</span>
+                        <span id="chatbotBtnLoading" class="loading" style="display: none;">
+                            <span class="spinner"></span> Analyzing...
+                        </span>
+                    </button>
+                </div>
+                <div id="chatbotResult" class="chatbot-result"></div>
+            </section>
+
+            <!-- Weather Section -->
+            <section class="card weather-section">
+                <h2>🌤️ Weather Lookup</h2>
+                <div class="input-group">
+                    <input
+                        type="text"
+                        id="locationInput"
+                        placeholder="Enter city name (e.g., Copenhagen, London)"
+                        onkeydown="if(event.key==='Enter') getWeather()"
+                    />
+                    <button onclick="getWeather()" class="btn btn-secondary">
+                        <span id="weatherBtnText">Get Weather</span>
+                        <span id="weatherBtnLoading" class="loading" style="display: none;">
+                            <span class="spinner"></span> Loading...
+                        </span>
+                    </button>
+                </div>
+                <div id="weatherResult" class="weather-result"></div>
+            </section>
+        </div>
+
+        <!-- Footer with branding -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg class="footer-logo-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" fill="none" stroke="url(#footerGradient)" stroke-width="2"/>
+                        <text x="30" y="38" font-family="monospace" font-size="24" font-weight="bold" fill="url(#footerGradient)" text-anchor="middle">&lt;SS/&gt;</text>
+                        <defs>
+                            <linearGradient id="footerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="footer-text">
+                    <p class="footer-brand">
+                        <span class="bracket-footer">&lt;</span>
+                        <strong>Syntax Squad</strong>
+                        <span class="bracket-footer">/&gt;</span>
+                    </p>
+                    <p class="footer-tagline">Building intelligent solutions</p>
+                    <p class="footer-year">© 2025 All rights reserved</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
